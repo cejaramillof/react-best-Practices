@@ -29,8 +29,22 @@ const DynamicForm = ({ labels, isExtendedForm }) => {
 
     useEffect(() => {
         console.log("welcome to the dynamic form")
+        return () => console.log("component cleanup")
     }, []);
 
+    useEffect(() => {
+        // global eventListener is bad practice
+        const root = document.getElementById('root');
+        root.addEventListener('keyup', (e) => {
+            setKey(e.code);
+        })
+        return () => {
+            const root = document.getElementById('root');
+            root.removeEventListener('keyup');
+        }
+    }, []);
+
+    const [key, setKey] = useState('');
     const [fields, setFields] = useState(labels);
     const [fieldsElements, setFieldsElements] = useState(getFieldsElements(labels));
 
@@ -59,6 +73,7 @@ const DynamicForm = ({ labels, isExtendedForm }) => {
                 className={classes.container}>
                 {fieldsElements}
                 <div>{getHeight()}</div>
+                <div>{key}</div>
             </div>
             <Fab
                 color="secondary"
