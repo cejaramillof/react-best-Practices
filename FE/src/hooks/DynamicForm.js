@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import Fab from "@material-ui/core/Fab";
@@ -15,14 +15,35 @@ const useStyles = makeStyles({
     },
 });
 
-const DynamicForm = ({ labels }) => {
+const getFieldsElements = (_fields) => {
+    return _fields.map(field => <TextField
+        id={field}
+        label={field}
+        variant="outlined"
+        color="secondary"
+    />)
+}
+
+const DynamicForm = ({ labels, isExtendedForm }) => {
     const classes = useStyles();
 
+    useEffect(() => {
+        console.log("welcome to the dynamic form")
+    }, []);
+
     const [fields, setFields] = useState(labels);
+    const [fieldsElements, setFieldsElements] = useState(getFieldsElements(labels));
+
     const handleNewField = (_fields) => {
         setFields([...fields, ''])
         // setFields(crr => [...crr, ''])
     }
+
+    useEffect(() => {
+        isExtendedForm || fields.length < 3 ?
+            setFieldsElements(getFieldsElements(fields)) :
+            setFieldsElements(getFieldsElements(fields.slice(0, 3)));
+    }, [isExtendedForm, fields]);
 
     // state: { ref: React.createRef()} // class component
     const containerRef = useRef(null);
@@ -36,12 +57,7 @@ const DynamicForm = ({ labels }) => {
             <div
                 ref={containerRef}
                 className={classes.container}>
-                {fields.map(field => <TextField
-                    id={field}
-                    label={field}
-                    variant="outlined"
-                    color="secondary"
-                />)}
+                {fieldsElements}
                 <div>{getHeight()}</div>
             </div>
             <Fab
