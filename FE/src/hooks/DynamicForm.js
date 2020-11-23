@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import Fab from "@material-ui/core/Fab";
@@ -16,25 +16,33 @@ const useStyles = makeStyles({
 });
 
 const DynamicForm = ({ labels }) => {
-
-    const [fields, setFields] = useState(labels);
-
     const classes = useStyles();
 
+    const [fields, setFields] = useState(labels);
     const handleNewField = (_fields) => {
         setFields([...fields, ''])
         // setFields(crr => [...crr, ''])
     }
 
+    // state: { ref: React.createRef()} // class component
+    const containerRef = useRef(null);
+
+    const getHeight = () => {
+        if (containerRef && containerRef.current) return containerRef.current.offsetHeight;
+    }
+
     return (
         <>
-            <div className={classes.container}>
+            <div
+                ref={containerRef}
+                className={classes.container}>
                 {fields.map(field => <TextField
                     id={field}
                     label={field}
                     variant="outlined"
                     color="secondary"
                 />)}
+                <div>{getHeight()}</div>
             </div>
             <Fab
                 color="secondary"
