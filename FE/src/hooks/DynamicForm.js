@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Fab from "@material-ui/core/Fab";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import useInterval from './useInterval';
 
 const useStyles = makeStyles({
     container: {
@@ -42,7 +43,13 @@ const DynamicForm = ({ labels, isExtendedForm }) => {
             const root = document.getElementById('root');
             root.removeEventListener('keyup');
         }
+        // const customInterval = setInterval(handleNewField(fields), 3000);
     }, []);
+
+    // const customInterval = setInterval(handleNewField(fields), 3000);
+    useInterval(() => {
+        setFields([...fields, '']);
+    }, 3000);
 
     const [key, setKey] = useState('');
     const [fields, setFields] = useState(labels);
