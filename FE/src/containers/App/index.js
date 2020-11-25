@@ -8,28 +8,30 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
 import LoginPage from "../LoginPage";
-import { getAuth } from './../AuthContainer/meta/actions';
-
-//hooks
-import HomePage from "../../hooks/HomePage";
-import DynamicForm from "../../hooks/DynamicForm";
+import { getAuth } from 'containers/AuthContainer/meta/selectors'
+import NavigationContainer from "containers/NavigationContainer";
 
 function App({ auth }) {
-  return (<LoginPage />);
+  return (
+      <>
+        {!auth.isAuthenticated && <LoginPage />}
+        {auth.isAuthenticated && <NavigationContainer />}
+      </>);
 }
 
 App.propTypes = {
   auth: PropTypes.object,
 };
-const mapStatToProps = () => ({
-  auth: getAuth,
-})
 
-const withConnect = connect();
+const mapStateToProps = (state) => ({
+  auth: getAuth(state),
+});
+
+const withConnect = connect(mapStateToProps);
 
 export default compose(
   withConnect,

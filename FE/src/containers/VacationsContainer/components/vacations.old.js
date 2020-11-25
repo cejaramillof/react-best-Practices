@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {makeStyles} from "@material-ui/core/styles";
-import Discounts from "./Discounts";
-import VacationsItems from "./VacationsItems";
+import Vacation from "./Vacation";
 
 const useStyles = makeStyles({
     vacationsRoot: {
@@ -13,7 +12,9 @@ const useStyles = makeStyles({
     },
 });
 
-function Vacations({ getVacations, updateShowDiscounts, vacations }) {
+function Vacations({ getVacations, vacations }) {
+
+    const [items, setItems] = React.useState([]);
 
     useEffect(() => {
         if (getVacations) {
@@ -21,16 +22,18 @@ function Vacations({ getVacations, updateShowDiscounts, vacations }) {
         }
     }, []);
 
+    useEffect(() => {
+        const vacationsElements = vacations.map(vacation => (
+            <Vacation vacation={vacation} />)
+        );
+        setItems(vacationsElements)
+    }, [vacations]);
+
     const classes = useStyles();
 
-    return (
-        <>
-            <Discounts updateShowDiscounts={updateShowDiscounts} vacations={vacations} />
-            <div className={classes.vacationsRoot}>
-                <VacationsItems vacations={vacations} />
-            </div>
-        </>
-    );
+    return <div className={classes.vacationsRoot}>
+        {items}
+    </div>;
 }
 
 Vacations.propTypes = {

@@ -1,6 +1,6 @@
 import produce from 'immer';
-import * as constants from "./constants";
 import { getDataFromStorage } from 'utils/cookies';
+import * as constants from "./constants";
 
 const { token, user } = getDataFromStorage();
 

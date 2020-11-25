@@ -1,12 +1,17 @@
 import axios from 'axios';
+import {BASE_URL} from "./environment";
+import {getDataFromStorage} from "./cookies";
 
 axios.interceptors.response.use(
     response => response.data
 );
 
-function network() {
+function networkService() {
+    const { token } = getDataFromStorage();
+    const headers = {
+        Authorization: `Bearer ${token}`
+    };
     const baseUrl = BASE_URL;
-    const headers = {};
 
     function setCredentials(token) {
         headers.Authorization = `Bearer ${token}`;
@@ -14,37 +19,38 @@ function network() {
 
     function* postData(action, body) {
         const url = baseUrl + action;
-        const config = { headers }
+        const config = { headers };
         return yield axios.post(url, body, config);
     }
 
     function* getData(action, params) {
         const url = baseUrl + action;
-        const config = { headers, params }
+        debugger;
+        const config = { headers, params };
         return yield axios.get(url, config);
     }
 
     function* putData(action, body) {
         const url = baseUrl + action;
-        const config = { headers }
+        const config = { headers };
         return yield axios.put(url, body, config);
     }
 
     function* deleteData(action) {
         const url = baseUrl + action;
-        const config = { headers  }
+        const config = { headers };
         return yield axios.delete(url, config);
     }
 
     return {
         setCredentials,
-        postData,
         getData,
+        postData,
         putData,
         deleteData,
     }
 }
 
-const networkService = network();
+const network = networkService();
 
-export default networkService;
+export default network;
