@@ -10,17 +10,24 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import LoginPage from "../LoginPage";
-import DynamicForm from "../../hooks/DynamicForm";
+import { getAuth } from './../AuthContainer/meta/actions';
 
 //hooks
 import HomePage from "../../hooks/HomePage";
+import DynamicForm from "../../hooks/DynamicForm";
 
-function App() {
-  return (<HomePage />);
+function App({ auth }) {
+  return (<LoginPage />);
 }
 
-App.propTypes = {};
+App.propTypes = {
+  auth: PropTypes.object,
+};
+const mapStatToProps = () => ({
+  auth: getAuth,
+})
 
 const withConnect = connect();
 

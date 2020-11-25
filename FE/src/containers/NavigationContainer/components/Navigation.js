@@ -18,6 +18,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Button from '@material-ui/core/Button';
 import {styles} from "../meta/styles";
 import NavItem from "./NavItem";
 
@@ -27,7 +28,7 @@ const icons = {
     'vacations': <VacationsIcon />,
 };
 
-function Navigation({ routes }) {
+function Navigation({ routes, user, logout }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -71,9 +72,12 @@ function Navigation({ routes }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" noWrap className={classes.title}>
                         Vacations
                     </Typography>
+                    {user && <Typography variant="h6" noWrap>{user.username}</Typography>}
+                    {user && <Button onClick={logout} color="inherit">Sign Out</Button>}
+
                 </Toolbar>
             </AppBar>
             <Drawer
