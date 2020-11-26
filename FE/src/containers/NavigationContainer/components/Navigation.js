@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, { memo, useEffect } from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -19,8 +19,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
-import {styles} from "../meta/styles";
+import { styles } from "../meta/styles";
 import NavItem from "./NavItem";
+import { Switch } from '@material-ui/core';
+import VacationsContainer from './../../VacationsContainer/';
 
 const useStyles = styles;
 const icons = {
@@ -28,19 +30,30 @@ const icons = {
     'vacations': <VacationsIcon />,
 };
 
-function Navigation({ routes, user, logout }) {
+function Navigation({ routes, user, logout, updateThemeMode }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [items, setItems] = React.useState([]);
     const [selectedKey, setSelectedKey] = React.useState(routes[0].key);
+    const [mode, setMode] = React.useState('light');
+
+    const changeMode = () => {
+        if (mode === 'light') {
+            setMode('dark')
+            updateThemeMode('dark');
+            return;
+        }
+        setMode('light')
+        updateThemeMode('light');
+    }
 
     useEffect(() => {
         const drawerItems = routes.map(route => (
             <NavItem onClick={() => setSelectedKey(route.key)}
-                     selectedKey={selectedKey}
-                     icon={icons[route.key]}
-                     item={route} />)
+                selectedKey={selectedKey}
+                icon={icons[route.key]}
+                item={route} />)
         );
         setItems(drawerItems)
     }, [routes, selectedKey]);
@@ -75,6 +88,12 @@ function Navigation({ routes, user, logout }) {
                     <Typography variant="h6" noWrap className={classes.title}>
                         Vacations
                     </Typography>
+                    <Switch
+                        checked={mode === 'light'}
+                        onChange={changeMode}
+                        color="secondary"
+                        inputsProps={{ 'aria-label': 'primary checkbox' }}
+                    />
                     {user && <Typography variant="h6" noWrap>{user.username}</Typography>}
                     {user && <Button onClick={logout} color="inherit">Sign Out</Button>}
 
@@ -113,6 +132,7 @@ function Navigation({ routes, user, logout }) {
                     [classes.contentShift]: open,
                 })}
             >
+                <VacationsContainer />
                 <div className={classes.drawerHeader} />
                 <Typography paragraph>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt

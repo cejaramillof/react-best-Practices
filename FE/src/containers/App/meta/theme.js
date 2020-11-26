@@ -1,13 +1,20 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import green from '@material-ui/core/colors/green';
 import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 import {localeData} from "../../../utils/languageDefaults";
 
-export const getTheme = (type = 'dark', fontFamily = localeData.en.fontFamily) =>
+export const getTheme = (type = 'light', fontFamily = localeData.en.fontFamily) =>
     createMuiTheme({
         palette: {
             type,
-            primary: blue,
+            // primary: green,
+            primary: {
+                light: '#e5a929',
+                main: '#f4932f',
+                dark: '#8f4c15',
+                contrastText: '#fff',
+            },
             secondary: red,
             error: {
                 light: '#e57373',
@@ -16,6 +23,19 @@ export const getTheme = (type = 'dark', fontFamily = localeData.en.fontFamily) =
                 contrastText: '#fff',
             },
             tonalOffset: 0.1,
+        },
+        overrides: {
+            MuiButton: {
+                contained: {
+                    borderRadius: '0.5rem',
+                }
+            },
+            MuiPaper: {
+                root : {},
+                elevation1: {
+                    borderRadius: '0.5rem',
+                }
+            }
         },
         typography: {
             fontFamily,
