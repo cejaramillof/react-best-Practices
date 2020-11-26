@@ -1,21 +1,29 @@
 import { connect } from 'react-redux';
 import Navigation from './components/Navigation';
 import { logout } from 'containers/AuthContainer/meta/actions';
-import {getUser} from "containers/AuthContainer/meta/selectors";
+import { getUser, selectIsAuthenticated } from "containers/AuthContainer/meta/selectors";
 import { updateThemeMode } from './../App/meta/actions';
 
 const mapStateToProps = (state) => ({
     routes: [
         {
-            key: 'home',
-            path: 'home',
-            text: 'Home' },
-        {
             key: 'vacations',
-            path: 'vacations',
-            text: 'Vacations' }
-        ],
+            path: '',
+            text: 'Vacations'
+        },
+        {
+            key: 'profile',
+            path: 'profile',
+            text: 'Profile'
+        },
+        {
+            key: 'example',
+            path: 'example',
+            text: 'Example'
+        },
+    ],
     user: getUser(state),
+    isAuthenticated: selectIsAuthenticated(state)
 });
 
 const mapDispatchToProps = ({

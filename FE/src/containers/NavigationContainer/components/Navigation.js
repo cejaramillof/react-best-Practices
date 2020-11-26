@@ -10,8 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import HomeIcon from '@material-ui/icons/Home';
+import ExampleIcon from '@material-ui/icons/Build';
 import VacationsIcon from '@material-ui/icons/AirplanemodeActive';
+import ProfileIcon from '@material-ui/icons/PermContactCalendar';
 import ExitIcon from '@material-ui/icons/ExitToApp';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -23,14 +24,23 @@ import { styles } from "../meta/styles";
 import NavItem from "./NavItem";
 import { Switch } from '@material-ui/core';
 import VacationsContainer from './../../VacationsContainer/';
+import { Switch as RouterSwitch, Route, Link } from 'react-router-dom';
+// import  LoginPage from 'containers/LoginPage/Loadable';
+import ProfileContainer from '../../ProfileContainer';
+import LoginPage from '../../LoginPage';
+import PublicRoute from '../../../components/Routes/PublicRoute';
+import PrivateRoute from './../../../components/Routes/PrivateRoute';
+import { PropTypes } from 'prop-types';
+import VacationDetailsContainer from './../../VacationDetailsContainer/index';
 
 const useStyles = styles;
 const icons = {
-    'home': <HomeIcon />,
+    'example': <ExampleIcon />,
     'vacations': <VacationsIcon />,
+    'profile': <ProfileIcon />,
 };
 
-function Navigation({ routes, user, logout, updateThemeMode }) {
+function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -50,10 +60,12 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
 
     useEffect(() => {
         const drawerItems = routes.map(route => (
-            <NavItem onClick={() => setSelectedKey(route.key)}
-                selectedKey={selectedKey}
-                icon={icons[route.key]}
-                item={route} />)
+            <Link to={route.path} >
+                <NavItem onClick={() => setSelectedKey(route.key)}
+                    selectedKey={selectedKey}
+                    icon={icons[route.key]}
+                    item={route} />
+            </Link>)
         );
         setItems(drawerItems)
     }, [routes, selectedKey]);
@@ -132,38 +144,45 @@ function Navigation({ routes, user, logout, updateThemeMode }) {
                     [classes.contentShift]: open,
                 })}
             >
-                <VacationsContainer />
-                <div className={classes.drawerHeader} />
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-                    facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-                    gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-                    donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-                    Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-                    imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-                    arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-                    donec massa sapien faucibus et molestie ac.
-                </Typography>
-                <Typography paragraph>
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-                    facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-                    tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-                    consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-                    vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-                    hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-                    tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-                    nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-                    accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-                </Typography>
+                <RouterSwitch>
+                    <Route path="/example" exact>
+                        <div className={classes.drawerHeader} />
+                        <Typography paragraph>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
+                            facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
+                            gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
+                            donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
+                            Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
+                            imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
+                            arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
+                            donec massa sapien faucibus et molestie ac.
+                        </Typography>
+                        <Typography paragraph>
+                            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
+                            facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
+                            tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
+                            consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
+                            vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
+                            hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
+                            tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
+                            nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
+                            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
+                        </Typography>
+                    </Route>
+                    <PrivateRoute path="/" exact component={VacationsContainer} isAuthenticated={isAuthenticated} />
+                    <PrivateRoute path="/vacation/:id" exact component={VacationDetailsContainer} isAuthenticated={isAuthenticated} />
+                    <PublicRoute path="/login" exact component={LoginPage} isAuthenticated={isAuthenticated} />
+                    <PrivateRoute path="/profile" exact component={ProfileContainer} isAuthenticated={isAuthenticated} />
+                </RouterSwitch>
             </main>
         </div>
     );
 }
 
 Navigation.propTypes = {
-
+    isAuthenticated: PropTypes.bool,
 };
 
 export default memo(Navigation);
