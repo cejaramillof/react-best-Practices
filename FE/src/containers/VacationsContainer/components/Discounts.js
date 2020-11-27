@@ -1,9 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import Paper from "@material-ui/core/Paper";
 import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
@@ -21,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Discounts = ({ vacations, updateShowDiscounts }) => {
+const Discounts = ({ vacations, updateShowDiscounts, discounts }) => {
 
     const classes = useStyles();
 
@@ -29,16 +25,21 @@ const Discounts = ({ vacations, updateShowDiscounts }) => {
         <>
             <Typography variant="h6" component="h6">Discounts</Typography>
             <Switch
-                checked={vacations.showDiscounts}
+                checked={discounts.show}
                 onChange={updateShowDiscounts}
                 color="primary"
                 name="checkedB"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-            {vacations.showDiscounts ?
+            <DiscountsItems vacations={vacations} discounts={discounts} classes={classes} />
+            {
+            /*
+            // on this will will lose the state
+            showDiscounts ?
                 <DiscountsItems vacations={vacations} />
-            :
-                <Paper classes={{ root: classes.paper }} > Discounts are hidden</Paper>}
+            : <Paper classes={{ root: classes.paper }} > Discounts are hidden</Paper>
+            */
+            }
         </>
     );
 };
