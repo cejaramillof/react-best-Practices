@@ -39,7 +39,7 @@ function Vacations({ getVacations, updateShowDiscounts, vacations, discounts, sh
                 discounts={discounts}
                 showDiscounts={showDiscounts} />
             <div className={classes.vacationsRoot}>
-                <VacationsItems vacations={vacations} handleVacationOnClick={handleVacationOnClick} updateSelectedVacation={updateSelectedVacation}/>
+                <VacationsItems vacations={vacations} handleVacationOnClick={handleVacationOnClick} updateSelectedVacation={updateSelectedVacation} />
             </div>
         </>
     );
