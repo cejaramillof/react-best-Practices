@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BasicInfo = ({ profile }) => {
-    const { user } = profile;
+const BasicInfo = ({ user }) => {
     const classes = useStyles();
     console.count("BasicInfo");
     return (
@@ -35,7 +34,7 @@ const BasicInfo = ({ profile }) => {
 };
 
 BasicInfo.propTypes = {
-    profile: PropTypes.object,
+    user: PropTypes.object,
 };
 
-export default BasicInfo;
+export default memo(BasicInfo);

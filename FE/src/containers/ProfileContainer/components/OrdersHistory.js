@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -33,8 +33,7 @@ const useStyles = makeStyles({
     },
 });
 
-function OrdersHistory({ profile }) {
-    const { orders } = profile;
+function OrdersHistory({ orders }) {
     const classes = useStyles();
 
     console.count("OrdersHistory");
@@ -68,7 +67,7 @@ function OrdersHistory({ profile }) {
 }
 
 OrdersHistory.propTypes = {
-    profile: PropTypes.object,
+    orders: PropTypes.array,
 };
 
-export default OrdersHistory;
+export default memo(OrdersHistory);

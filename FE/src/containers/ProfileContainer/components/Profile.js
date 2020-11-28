@@ -20,14 +20,14 @@ function Profile({ profile, getProfile, updateUserStatus }) {
                 backgroundColor: profile.status === 'active' ? 'green' : '',
                 color: profile.status === 'active' ? 'white' : ''
             }} />
-            <BasicInfo profile={profile} />
-            <OrdersHistory profile={profile} />
+            <BasicInfo user={profile.user} />
+            <OrdersHistory orders={profile.orders} />
         </Grid>
     );
 }
 
 Profile.propTypes = {
-    user: PropTypes.object,
+    profile: PropTypes.object,
 };
 
 export default Profile;
