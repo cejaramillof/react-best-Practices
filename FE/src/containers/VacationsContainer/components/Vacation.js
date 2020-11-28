@@ -40,6 +40,9 @@ export function Vacation({ vacation }) {
                         <Typography variant="body2" color="textSecondary" component="p">
                             {vacation.description}
                         </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {vacation.price}
+                        </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>

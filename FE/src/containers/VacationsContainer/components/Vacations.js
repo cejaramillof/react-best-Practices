@@ -23,11 +23,14 @@ function Vacations({ getVacations, updateShowDiscounts, vacations, discounts, sh
 
     const classes = useStyles();
 
+    // will break the reactMemo, because he dont make a depth compair, only compair reference
+    // is better move this calculation to the selector
+    // const newVacations = vacations.map(vacation => ( {...vacation, price: 100}))
+
     return (
         <>
             <Discounts
                 updateShowDiscounts={updateShowDiscounts}
-                vacations={vacations}
                 discounts={discounts}
                 showDiscounts={showDiscounts} />
             <div className={classes.vacationsRoot}>
