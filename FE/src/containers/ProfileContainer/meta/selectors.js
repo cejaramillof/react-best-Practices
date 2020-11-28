@@ -4,6 +4,6 @@ import { initialState } from './reducer';
  * @param state
  * @returns {Object}
  */
-const select = state => state.profile || initialState;
-export const selectUser = state => select(state).user;
-export const selectOrders = state => select(state).orders;
+export const selectProfile = state => state.profile || initialState;
+export const selectUser = state => selectProfile(state).user;
+export const selectOrders = state => selectProfile(state).orders;

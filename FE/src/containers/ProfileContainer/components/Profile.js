@@ -1,20 +1,29 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BasicInfo from "./BasicInfo";
 import OrdersHistory from "./OrdersHistory";
+import { Chip, Grid } from '@material-ui/core';
 
-function Profile({ user, orders, getProfile }) {
+function Profile({ profile, getProfile, updateUserStatus }) {
 
     useEffect(() => {
-        if(getProfile) {
+        if (getProfile) {
             getProfile();
         }
     }, []);
 
-    return <div >
-        <BasicInfo user={user} />
-        <OrdersHistory orders={orders} />
-    </div>;
+    console.count("Profile");
+
+    return (
+        <Grid container direction="column" alignItems="center">
+            <Chip onClick={updateUserStatus} label={profile.status} style={{
+                backgroundColor: profile.status === 'active' ? 'green' : '',
+                color: profile.status === 'active' ? 'white' : ''
+            }} />
+            <BasicInfo profile={profile} />
+            <OrdersHistory profile={profile} />
+        </Grid>
+    );
 }
 
 Profile.propTypes = {

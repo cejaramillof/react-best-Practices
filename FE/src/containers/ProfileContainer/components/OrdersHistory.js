@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -32,8 +33,11 @@ const useStyles = makeStyles({
     },
 });
 
-function OrdersHistory({ orders }) {
+function OrdersHistory({ profile }) {
+    const { orders } = profile;
     const classes = useStyles();
+
+    console.count("OrdersHistory");
 
     return (
         <TableContainer component={Paper}>
@@ -63,6 +67,8 @@ function OrdersHistory({ orders }) {
     );
 }
 
-OrdersHistory.propTypes = {};
+OrdersHistory.propTypes = {
+    profile: PropTypes.object,
+};
 
 export default OrdersHistory;

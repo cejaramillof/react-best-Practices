@@ -14,3 +14,8 @@ export const getProfileError = payload => ({
     type: constants.GET_PROFILE_ERROR,
     payload,
 });
+
+export const updateUserStatus = payload => ({
+    type: constants.UPDATE_USER_STATUS,
+    payload,
+});

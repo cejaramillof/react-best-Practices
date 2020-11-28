@@ -19,19 +19,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BasicInfo = ({ user }) => {
+const BasicInfo = ({ profile }) => {
+    const { user } = profile;
     const classes = useStyles();
-    return (<Paper classes={{root: classes.paper}}>
-        <Avatar alt="Remy Sharp" className={classes.large} src={user.avatar} />
-        <Typography component="h4" variant="h4">{user.name}</Typography>
-        <Typography component="h5" variant="h5">{user.email}</Typography>
-        <Typography component="h6" variant="h6">{user.phoneNumber}</Typography>
-        <Typography component="h7" variant="h7">Joined At&#160; {user.joined}</Typography>
-        </Paper>);
+    console.count("BasicInfo");
+    return (
+        <Paper classes={{ root: classes.paper }}>
+            <Avatar alt="Remy Sharp" className={classes.large} src={user.avatar} />
+            <Typography component="h4" variant="h4">{user.name}</Typography>
+            <Typography component="h5" variant="h5">{user.email}</Typography>
+            <Typography component="h6" variant="h6">{user.phoneNumber}</Typography>
+            <Typography component="h7" variant="h7">Joined At&#160; {user.joined}</Typography>
+        </Paper>
+    );
 };
 
 BasicInfo.propTypes = {
-    user: PropTypes.object,
+    profile: PropTypes.object,
 };
 
 export default BasicInfo;
