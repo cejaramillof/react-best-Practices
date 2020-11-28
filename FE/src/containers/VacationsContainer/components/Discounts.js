@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Discounts = ({ vacations, updateShowDiscounts, discounts, showDiscounts }) => {
+const Discounts = ({ updateShowDiscounts, discounts, showDiscounts }) => {
 
     const classes = useStyles();
 
@@ -31,12 +31,12 @@ const Discounts = ({ vacations, updateShowDiscounts, discounts, showDiscounts })
                 name="checkedB"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-            <DiscountsItems vacations={vacations} discounts={discounts} showDiscounts={showDiscounts} classes={classes} />
+            <DiscountsItems discounts={discounts} showDiscounts={showDiscounts} classes={classes} />
             {
             /*
             // on this will will lose the state
             showDiscounts ?
-                <DiscountsItems vacations={vacations} />
+                <DiscountsItems />
             : <Paper classes={{ root: classes.paper }} > Discounts are hidden</Paper>
             */
             }
@@ -46,7 +46,6 @@ const Discounts = ({ vacations, updateShowDiscounts, discounts, showDiscounts })
 
 Discounts.propTypes = {
     updateShowDiscounts: PropTypes.func,
-    vacations: PropTypes.object,
     discounts: PropTypes.array,
     showDiscounts: PropTypes.bool,
 };
