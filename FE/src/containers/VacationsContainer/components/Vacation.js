@@ -19,13 +19,16 @@ const useStyles = makeStyles({
     },
 });
 
-export function Vacation({ vacation }) {
-
+export function Vacation({ vacation, handleVacationOnClick, updateSelectedVacation }) {
     const classes = useStyles();
+    const handleVacationOnClick2 = (vacationId) => updateSelectedVacation(vacationId);
 
     return (
-        <Link to={`/vacation/${vacation.id}`} >
-            <Card className={classes.root}>
+        <Link /* to={`/vacation/${vacation.id}`} */ >
+            <Card 
+            className={classes.root} 
+            // onClick={() => handleVacationOnClick(vacation.id)} bad practice
+            onClick={() => handleVacationOnClick2(vacation.id)}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
@@ -59,7 +62,9 @@ export function Vacation({ vacation }) {
 }
 
 Vacation.propTypes = {
-    vacation: PropTypes.object
+    vacation: PropTypes.object,
+    handleVacationOnClick: PropTypes.func,
+    updateSelectedVacation: PropTypes.func,
 };
 
 export default Vacation;

@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     },
 });
 
-function Vacations({ getVacations, updateShowDiscounts, vacations, discounts, showDiscounts }) {
+function Vacations({ getVacations, updateShowDiscounts, vacations, discounts, showDiscounts, selectedVacation, updateSelectedVacation }) {
 
     useEffect(() => {
         if (getVacations) {
@@ -22,6 +22,11 @@ function Vacations({ getVacations, updateShowDiscounts, vacations, discounts, sh
     }, []);
 
     const classes = useStyles();
+
+    // bad pratice because will be re created on each render of vacations
+    const handleVacationOnClick = (vacationId) => updateSelectedVacation(vacationId);
+
+    console.count("Vacations");
 
     // will break the reactMemo, because he dont make a depth compair, only compair reference
     // is better move this calculation to the selector
@@ -34,7 +39,7 @@ function Vacations({ getVacations, updateShowDiscounts, vacations, discounts, sh
                 discounts={discounts}
                 showDiscounts={showDiscounts} />
             <div className={classes.vacationsRoot}>
-                <VacationsItems vacations={vacations} />
+                <VacationsItems vacations={vacations} handleVacationOnClick={handleVacationOnClick} updateSelectedVacation={updateSelectedVacation}/>
             </div>
         </>
     );
@@ -46,6 +51,8 @@ Vacations.propTypes = {
     vacations: PropTypes.array,
     discounts: PropTypes.array,
     showDiscounts: PropTypes.bool,
+    selectedVacation: PropTypes.string,
+    updateSelectedVacation: PropTypes.func,
 };
 
 export default Vacations;
