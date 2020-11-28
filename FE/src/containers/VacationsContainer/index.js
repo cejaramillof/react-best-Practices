@@ -1,11 +1,14 @@
 import { connect } from 'react-redux';
 import Vacations from './components/Vacations';
 import { getVacations, updateShowDiscounts } from "./meta/actions";
-import { selectVacations, getDiscounts } from "./meta/selectors";
+import { makeSelectVacations, selectDiscounts, selectShowDiscounts } from "./meta/selectors";
 
 const mapStateToProps = state => ({
-    vacations: selectVacations(state),
-    discounts: getDiscounts(state),
+    // vacations: selectVacations(state),
+    // vacations: selectVacationsLog(state),
+    vacations: makeSelectVacations(state),
+    discounts: selectDiscounts(state),
+    showDiscounts: selectShowDiscounts(state),
 });
 
 const mapDispatchToProps = ({

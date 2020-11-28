@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Discounts = ({ vacations, updateShowDiscounts, discounts }) => {
+const Discounts = ({ vacations, updateShowDiscounts, discounts, showDiscounts }) => {
 
     const classes = useStyles();
 
@@ -25,13 +25,13 @@ const Discounts = ({ vacations, updateShowDiscounts, discounts }) => {
         <>
             <Typography variant="h6" component="h6">Discounts</Typography>
             <Switch
-                checked={discounts.show}
+                checked={showDiscounts}
                 onChange={updateShowDiscounts}
                 color="primary"
                 name="checkedB"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-            <DiscountsItems vacations={vacations} discounts={discounts} classes={classes} />
+            <DiscountsItems vacations={vacations} discounts={discounts} showDiscounts={showDiscounts} classes={classes} />
             {
             /*
             // on this will will lose the state
@@ -47,6 +47,8 @@ const Discounts = ({ vacations, updateShowDiscounts, discounts }) => {
 Discounts.propTypes = {
     updateShowDiscounts: PropTypes.func,
     vacations: PropTypes.object,
+    discounts: PropTypes.array,
+    showDiscounts: PropTypes.bool,
 };
 
 export default Discounts;

@@ -5,18 +5,18 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
-const DiscountsItems = ({ discounts, classes }) => {
+const DiscountsItems = ({ discounts, classes, showDiscounts }) => {
 
     const [selected, setSelected] = useState('');
 
-    if (discounts.show) {
+    if (showDiscounts) {
         return (<Paper classes={{ root: classes.paper }} > Discounts are hidden</Paper>)
     }
 
     return (
         <Paper variant="outlined">
             <List component="nav" aria-label="secondary mailbox folders">
-                {discounts.list.map(vac => <ListItem onClick={() => setSelected(vac.id)} button selected={vac.id === selected}>
+                {discounts.map(vac => <ListItem onClick={() => setSelected(vac.id)} button selected={vac.id === selected}>
                     <ListItemText primary={`${vac.destination} 15% OFF`} />
                 </ListItem>)}
             </List>
@@ -25,7 +25,9 @@ const DiscountsItems = ({ discounts, classes }) => {
 };
 
 DiscountsItems.propTypes = {
-    vacations: PropTypes.object,
+    discounts: PropTypes.array,
+    classes: PropTypes.object,
+    showDiscounts: PropTypes.bool,
 };
 
 export default DiscountsItems;

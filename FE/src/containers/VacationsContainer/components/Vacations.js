@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Discounts from "./Discounts";
 import VacationsItems from "./VacationsItems";
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     },
 });
 
-function Vacations({ getVacations, updateShowDiscounts, vacations, discounts }) {
+function Vacations({ getVacations, updateShowDiscounts, vacations, discounts, showDiscounts }) {
 
     useEffect(() => {
         if (getVacations) {
@@ -25,7 +25,11 @@ function Vacations({ getVacations, updateShowDiscounts, vacations, discounts }) 
 
     return (
         <>
-            <Discounts updateShowDiscounts={updateShowDiscounts} vacations={vacations} discounts={discounts} />
+            <Discounts
+                updateShowDiscounts={updateShowDiscounts}
+                vacations={vacations}
+                discounts={discounts}
+                showDiscounts={showDiscounts} />
             <div className={classes.vacationsRoot}>
                 <VacationsItems vacations={vacations} />
             </div>
@@ -35,7 +39,10 @@ function Vacations({ getVacations, updateShowDiscounts, vacations, discounts }) 
 
 Vacations.propTypes = {
     getVacations: PropTypes.func,
+    updateShowDiscounts: PropTypes.func,
     vacations: PropTypes.array,
+    discounts: PropTypes.array,
+    showDiscounts: PropTypes.bool,
 };
 
 export default Vacations;
