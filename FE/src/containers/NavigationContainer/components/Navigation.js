@@ -24,16 +24,25 @@ import Button from '@material-ui/core/Button';
 import { styles } from "../meta/styles";
 import NavItem from "./NavItem";
 import { Switch } from '@material-ui/core';
-import VacationsContainer from './../../VacationsContainer/';
 import { Switch as RouterSwitch, Route, Link } from 'react-router-dom';
-// import  LoginPage from 'containers/LoginPage/Loadable';
+
+/*
 import ProfileContainer from '../../ProfileContainer';
 import LoginPage from '../../LoginPage';
+import VacationsContainer from './../../VacationsContainer/';
+import VacationDetailsContainer from './../../VacationDetailsContainer/';
+*/
+import LoginPage from 'containers/LoginPage/Loadable';
+import ProfileContainer from 'containers/ProfileContainer/Loadable';
+import VacationsContainer from 'containers/VacationsContainer/Loadable';
+import VacationDetailsContainer from 'containers/VacationDetailsContainer/Loadable';
+
+
 import PublicRoute from '../../../components/Routes/PublicRoute';
 import PrivateRoute from './../../../components/Routes/PrivateRoute';
 import { PropTypes } from 'prop-types';
-import VacationDetailsContainer from './../../VacationDetailsContainer/index';
 import InteractiveList from './../../VacationsContainer/components/InteractiveList';
+import { loadable } from 'utils/loadable';
 
 const useStyles = styles;
 const icons = {
@@ -175,11 +184,42 @@ function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) 
                             accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
                         </Typography>
                     </Route>
-                    <Route path="/list" exact component={InteractiveList} />
-                    <PrivateRoute path="/" exact component={VacationsContainer} isAuthenticated={isAuthenticated} />
-                    <PrivateRoute path="/vacation/:id" exact component={VacationDetailsContainer} isAuthenticated={isAuthenticated} />
-                    <PublicRoute path="/login" exact component={LoginPage} isAuthenticated={isAuthenticated} />
-                    <PrivateRoute path="/profile" exact component={ProfileContainer} isAuthenticated={isAuthenticated} />
+                    <Route
+                        path="/list" exact
+                        component={InteractiveList} />
+                    <PrivateRoute
+                        isAuthenticated={isAuthenticated}
+                        path="/" exact
+                        // component={VacationsContainer}
+                        // component={() => import(/* webpackChunkName: "vacations" */ 'containers/VacationsContainer')}
+                        // component={loadable(() => import(/* webpackChunkName: "vacations" */ 'containers/VacationsContainer'))}
+                        component={VacationsContainer}
+                    />
+                    <PrivateRoute
+                        isAuthenticated={isAuthenticated}
+                        path="/vacation/:id" exact
+                        // component={VacationDetailsContainer}
+                        // component={() => import(/* webpackChunkName: "vacationDetails" */ 'containers/VacationDetailsContainer')}
+                        // component={loadable(() => import(/* webpackChunkName: "vacationDetails" */ 'containers/VacationDetailsContainer'))}
+                        component={VacationDetailsContainer}
+                    />
+                    <PublicRoute
+                        isAuthenticated={isAuthenticated}
+                        path="/login" exact
+                        // component={LoginPage}
+                        // component={() => import(/* webpackChunkName: "login" */ 'containers/LoginPage')}
+                        // component={loadable(() => import(/* webpackChunkName: "login" */ 'containers/LoginPage'))}
+                        component={LoginPage}
+                    />
+                    <PrivateRoute
+                        isAuthenticated={isAuthenticated}
+                        path="/profile" exact
+                        // component={ProfileContainer}
+                        // component={() => import(/* webpackChunkName: "profile" */ 'containers/ProfileContainer')}
+                        // component={loadable(() => import(/* webpackChunkName: "profile" */ 'containers/ProfileContainer'))}
+                        component={ProfileContainer}
+                    />
+
                 </RouterSwitch>
             </main>
         </div>
