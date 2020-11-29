@@ -13,6 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ExampleIcon from '@material-ui/icons/Build';
 import VacationsIcon from '@material-ui/icons/AirplanemodeActive';
 import ProfileIcon from '@material-ui/icons/PermContactCalendar';
+import ListIcon from '@material-ui/icons/FormatListNumbered';
 import ExitIcon from '@material-ui/icons/ExitToApp';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -32,12 +33,14 @@ import PublicRoute from '../../../components/Routes/PublicRoute';
 import PrivateRoute from './../../../components/Routes/PrivateRoute';
 import { PropTypes } from 'prop-types';
 import VacationDetailsContainer from './../../VacationDetailsContainer/index';
+import InteractiveList from './../../VacationsContainer/components/InteractiveList';
 
 const useStyles = styles;
 const icons = {
     'example': <ExampleIcon />,
     'vacations': <VacationsIcon />,
     'profile': <ProfileIcon />,
+    'list': <ListIcon />,
 };
 
 function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) {
@@ -60,8 +63,9 @@ function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) 
 
     useEffect(() => {
         const drawerItems = routes.map(route => (
-            <Link to={route.path} >
-                <NavItem onClick={() => setSelectedKey(route.key)}
+            <Link to={route.path} key={route.path}>
+                <NavItem
+                    onClick={() => setSelectedKey(route.key)}
                     selectedKey={selectedKey}
                     icon={icons[route.key]}
                     item={route} />
@@ -171,6 +175,7 @@ function Navigation({ routes, user, logout, updateThemeMode, isAuthenticated }) 
                             accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
                         </Typography>
                     </Route>
+                    <Route path="/list" exact component={InteractiveList} />
                     <PrivateRoute path="/" exact component={VacationsContainer} isAuthenticated={isAuthenticated} />
                     <PrivateRoute path="/vacation/:id" exact component={VacationDetailsContainer} isAuthenticated={isAuthenticated} />
                     <PublicRoute path="/login" exact component={LoginPage} isAuthenticated={isAuthenticated} />

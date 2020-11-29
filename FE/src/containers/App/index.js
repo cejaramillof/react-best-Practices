@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import LoginPage from "../LoginPage";
 import { getAuth } from 'containers/AuthContainer/meta/selectors'
-import NavigationContainer from "containers/NavigationContainer";
+import NavigationContainer from 'containers/NavigationContainer';
 import { ThemeProvider } from "@material-ui/core";
 import { selectTheme } from './meta/selectors';
 import { BrowserRouter } from 'react-router-dom';

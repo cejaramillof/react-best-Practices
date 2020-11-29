@@ -21,6 +21,11 @@ const mapStateToProps = (state) => ({
             path: 'example',
             text: 'Example'
         },
+        {
+            key: 'list',
+            path: 'list',
+            text: 'List'
+        },
     ],
     user: getUser(state),
     isAuthenticated: selectIsAuthenticated(state)
